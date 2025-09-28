@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntraSync Industrial - Unified Platform for Precast, Readymix & Aggregates</title>
+    <style>
+        /* Brand Colors & Global Styles */
+        :root {
+            --intrasync-navy: #1B3A75;
+            --intrasync-blue: #2E5CAF;
+            --intrasync-white: #FFFFFF;
+            --intrasync-light-blue: #E8F0FF;
+            --intrasync-accent: #FFD700;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555555;
+            --border-light: #E0E8FF;
+            --shadow-main: 0 10px 30px rgba(27, 58, 117, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--intrasync-white);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-main);
+            z-index: 1000;
+            max-width: 280px;
+            border: 2px solid var(--intrasync-navy);
+        }
+
+        .nav-menu h3 {
+            color: var(--intrasync-navy);
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu a {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: var(--intrasync-navy);
+            color: var(--intrasync-white);
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            background: var(--intrasync-blue);
+            transform: translateX(-5px);
+        }
+
+        /* Page Containers */
+        .page {
+            max-width: 8.5in;
+            min-height: 11in;
+            margin: 0 auto 40px;
+            background: var(--intrasync-white);
+            box-shadow: var(--shadow-main);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .page-header {
+            background: var(--intrasync-navy);
+            color: var(--intrasync-white);
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--intrasync-navy) 0%, var(--intrasync-blue) 100%);
+            color: var(--intrasync-white);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 50px,
+                rgba(255, 255, 255, 0.03) 50px,
+                rgba(255, 255, 255, 0.03) 100px
+            );
+        }
+
+        .hero-section h1 {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-section .tagline {
+            font-size: 20px;
+            opacity: 0.95;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Industry Cards */
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .industries-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .industry-card {
+            background: var(--intrasync-white);
+            border: 3px solid var(--intrasync-navy);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .industry-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(27, 58, 117, 0.2);
+        }
+
+        .industry-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--intrasync-navy);
+            color: var(--intrasync-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin: 0 auto 20px;
+        }
+
+        .industry-card h3 {
+            color: var(--intrasync-navy);
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .feature-list {
+            list-style: none;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li:before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--intrasync-blue);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Comparison Table */
+        .comparison-section {
+            padding: 40px;
+        }
+
+        .comparison-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .comparison-header h2 {
+            color: var(--intrasync-navy);
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid var(--intrasync-navy);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .comparison-table thead {
+            background: var(--intrasync-navy);
+            color: var(--intrasync-white);
+        }
+
+        .comparison-table th {
+            padding: 15px;
+            font-weight: 600;
+            text-align: left;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 14px;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: var(--intrasync-light-blue);
+        }
+
+        .comparison-table .intrasync-column {
+            background: var(--intrasync-light-blue);
+            font-weight: 600;
+        }
+
+        .check-mark {
+            color: #27ae60;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .x-mark {
+            color: #e74c3c;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* ROI Section */
+        .roi-section {
+            padding: 40px;
+            background: linear-gradient(135deg, #f8f9fa 0%, var(--intrasync-light-blue) 100%);
+        }
+
+        .roi-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .roi-header h2 {
+            color: var(--intrasync-navy);
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .roi-calculator {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .roi-calculator {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .calc-input-group {
+            background: var(--intrasync-white);
+            border: 2px solid var(--intrasync-navy);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .calc-input-group h3 {
+            color: var(--intrasync-navy);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .calc-field {
+            margin-bottom: 20px;
+        }
+
+        .calc-field label {
+            display: block;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .calc-field input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .calc-field input:focus {
+            outline: none;
+            border-color: var(--intrasync-blue);
+        }
+
+        .roi-results {
+            background: var(--intrasync-accent);
+            border: 3px solid var(--intrasync-navy);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .roi-results h3 {
+            color: var(--intrasync-navy);
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .roi-amount {
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--intrasync-navy);
+            margin: 20px 0;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 40px;
+            background: var(--intrasync-navy);
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .stat-card {
+            background: var(--intrasync-white);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--intrasync-blue);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Implementation Timeline */
+        .timeline-section {
+            padding: 40px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--intrasync-navy);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -25px;
+            top: 5px;
+            width: 30px;
+            height: 30px;
+            background: var(--intrasync-white);
+            border: 3px solid var(--intrasync-navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--intrasync-navy);
+        }
+
+        .timeline-content {
+            background: var(--intrasync-white);
+            border: 2px solid var(--intrasync-navy);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .timeline-content h4 {
+            color: var(--intrasync-navy);
+            margin-bottom: 10px;
+        }
+
+        .timeline-content .duration {
+            color: var(--intrasync-blue);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--intrasync-navy);
+            color: var(--intrasync-white);
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .contact-method {
+            background: var(--intrasync-white);
+            color: var(--intrasync-navy);
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .contact-method h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .contact-method p {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            background: var(--intrasync-accent);
+            color: var(--intrasync-navy);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .page {
+                box-shadow: none !important;
+                page-break-after: always;
+            }
+            .nav-menu {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-menu">
+        <h3 style="font-size: 24px; color: var(--intrasync-navy); border-bottom: 3px solid var(--intrasync-navy); padding-bottom: 10px; margin-bottom: 25px;">INTRASYNC</h3>
+        <a href="#overview">Overview</a>
+        <a href="#industries">Industries</a>
+        <a href="#comparison">Comparison</a>
+        <a href="#roi">ROI Calculator</a>
+        <a href="#implementation">Implementation</a>
+        <a href="#contact">Contact</a>
+        <a href="#" onclick="window.print(); return false;">Print All</a>
+    </nav>
+
+    <!-- OVERVIEW PAGE -->
+    <div id="overview" class="page">
+        <div class="page-header" style="font-size: 16px; font-weight: 700;">INTRASYNC INDUSTRIAL - Complete Platform Overview</div>
+        <div class="hero-section">
+            <h1 style="font-size: 64px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px;">INTRASYNC INDUSTRIAL</h1>
+            <div class="tagline">The Only Unified Platform for Precast, Readymix & Aggregates</div>
+            <p style="font-size: 16px; margin-top: 20px; opacity: 0.9;">
+                One system. Three industries. Complete control.
+            </p>
+        </div>
+        
+        <div class="industries-grid">
+            <div class="industry-card">
+                <div class="industry-icon">🏗️</div>
+                <h3>Precast Concrete</h3>
+                <ul class="feature-list">
+                    <li>Production Planning & Scheduling</li>
+                    <li>Mold Management & Tracking</li>
+                    <li>Piece-by-Piece Inventory</li>
+                    <li>Quality Control Systems</li>
+                    <li>Yard Management</li>
+                </ul>
+            </div>
+            
+            <div class="industry-card">
+                <div class="industry-icon">🚛</div>
+                <h3>Readymix</h3>
+                <ul class="feature-list">
+                    <li>Batch Plant Integration</li>
+                    <li>Mix Design Management</li>
+                    <li>Truck Dispatch & GPS</li>
+                    <li>Real-Time Delivery Tracking</li>
+                    <li>Quality Compliance</li>
+                </ul>
+            </div>
+            
+            <div class="industry-card">
+                <div class="industry-icon">⛏️</div>
+                <h3>Aggregates</h3>
+                <ul class="feature-list">
+                    <li>Quarry Operations</li>
+                    <li>Stockpile Management</li>
+                    <li>Load-Out Automation</li>
+                    <li>Scale House Integration</li>
+                    <li>DOT Compliance</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Plants Using INTRASYNC</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Customer Satisfaction</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">30-60</div>
+                <div class="stat-label">Day Implementation</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">10%+</div>
+                <div class="stat-label">Revenue Increase</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPARISON PAGE -->
+    <div id="comparison" class="page">
+        <div class="page-header" style="font-size: 16px; font-weight: 700;">Why INTRASYNC Beats The Competition</div>
+        <div class="comparison-section">
+            <div class="comparison-header">
+            <h2>See Why Industry Leaders Choose INTRASYNC</h2>
+            <p>The only platform built specifically for construction materials</p>
+            </div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th class="intrasync-column" style="background: var(--intrasync-navy); color: var(--intrasync-accent); font-size: 16px;">INTRASYNC</th>
+                        <th>Generic ERP</th>
+                        <th>Point Solutions</th>
+                        <th>Spreadsheets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Precast Support</strong></td>
+                        <td class="intrasync-column"><span class="check-mark">✓</span> Complete</td>
+                        <td><span class="x-mark">✗</span></td>
+                        <td>Limited</td>
+                        <td><span class="x-mark">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Readymix Integration</strong></td>
+                        <td class="intrasync-column"><span class="check-mark">✓</span> Native</td>
+                        <td><span class="x-mark">✗</span></td>
+                        <td>Partial</td>
+                        <td><span class="x-mark">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aggregates Management</strong></td>
+                        <td class="intrasync-column"><span class="check-mark">✓</span> Full Suite</td>
+                        <td><span class="x-mark">✗</span></td>
+                        <td>Basic</td>
+                        <td><span class="x-mark">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>GPS Fleet Tracking</strong></td>
+                        <td class="intrasync-column"><span class="check-mark">✓</span> Advanced</td>
+                        <td>Add-on $$</td>
+                        <td>Basic</td>
+                        <td><span class="x-mark">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scale Integration</strong></td>
+                        <td class="intrasync-column"><span class="check-mark">✓</span> Automatic</td>
+                        <td><span class="x-mark">✗</span></td>
+                        <td>Manual</td>
+                        <td><span class="x-mark">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mobile Access</strong></td>
+                        <td class="intrasync-column"><span class="check-mark">✓</span> Full</td>
+                        <td>Limited</td>
+                        <td>App Only</td>
+                        <td><span class="x-mark">✗</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Implementation Time</strong></td>
+                        <td class="intrasync-column">30-60 days</td>
+                        <td>6-12 months</td>
+                        <td>3-6 months</td>
+                        <td>Ongoing</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total Cost of Ownership</strong></td>
+                        <td class="intrasync-column">Lowest TCO</td>
+                        <td>High</td>
+                        <td>Medium</td>
+                        <td>Hidden costs</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ROI CALCULATOR PAGE -->
+    <div id="roi" class="page">
+        <div class="page-header">Calculate Your Return on Investment</div>
+        <div class="roi-section">
+            <div class="roi-header">
+                <h2>See Your Potential Savings</h2>
+                <p>Enter your numbers to calculate ROI across all operations</p>
+            </div>
+            
+            <div class="roi-calculator">
+                <div class="calc-input-group">
+                    <h3>Current Operations</h3>
+                    <div class="calc-field">
+                        <label>Combined Annual Revenue</label>
+                        <input type="number" id="revenue" value="25000000">
+                    </div>
+                    <div class="calc-field">
+                        <label>Number of Trucks</label>
+                        <input type="number" id="trucks" value="50">
+                    </div>
+                    <div class="calc-field">
+                        <label>Admin Hours per Week</label>
+                        <input type="number" id="admin-hours" value="200">
+                    </div>
+                </div>
+                
+                <div class="calc-input-group">
+                    <h3>Expected Improvements</h3>
+                    <div class="calc-field">
+                        <label>Revenue Increase</label>
+                        <input type="text" value="10-15%" readonly style="background: #f0f0f0;">
+                    </div>
+                    <div class="calc-field">
+                        <label>Fleet Efficiency Gain</label>
+                        <input type="text" value="20-30%" readonly style="background: #f0f0f0;">
+                    </div>
+                    <div class="calc-field">
+                        <label>Admin Time Reduction</label>
+                        <input type="text" value="50-60%" readonly style="background: #f0f0f0;">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="roi-results">
+                <h3>Your Estimated Annual Savings</h3>
+                <div class="roi-amount" id="total-savings">$3,750,000</div>
+                <p>Based on industry averages across precast, readymix, and aggregates operations</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- IMPLEMENTATION TIMELINE -->
+    <div id="implementation" class="page">
+        <div class="page-header">Implementation Roadmap</div>
+        <div class="timeline-section">
+            <div class="comparison-header">
+                <h2>Your Path to Digital Transformation</h2>
+                <p>Phased implementation across all your operations</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <div class="duration">Days 1-14</div>
+                        <h4>Discovery & Assessment</h4>
+                        <p>Complete evaluation of your precast, readymix, and aggregates operations. Identify integration points and customize workflow.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <div class="duration">Days 15-30</div>
+                        <h4>System Configuration</h4>
+                        <p>Set up batch plants, scale houses, and production lines. Configure GPS tracking and integrate existing equipment.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <div class="duration">Days 31-45</div>
+                        <h4>Data Migration & Training</h4>
+                        <p>Secure transfer of customer data, mix designs, and inventory. Comprehensive training for all teams.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <div class="duration">Days 46-60</div>
+                        <h4>Go Live & Support</h4>
+                        <p>Full deployment with 24/7 support. Real-time monitoring and optimization across all operations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page">
+        <div class="contact-section">
+            <h2 style="font-size: 42px; margin-bottom: 20px;">Ready to Unify Your Operations with INTRASYNC?</h2>
+            <p style="font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto;">
+                Whether you run precast, readymix, aggregates, or all three, INTRASYNC is the only platform that brings everything together.
+            </p>
+            
+            <div class="contact-grid">
+                <div class="contact-method">
+                    <h3>📞 Call Us</h3>
+                    <p><a href="tel:+17075643666" style="color: var(--intrasync-navy); text-decoration: none;">(707) 564-3666</a></p>
+                    <p style="font-size: 14px; font-weight: normal; margin-top: 10px;">Mon-Fri 8am-6pm PST</p>
+                </div>
+                
+                <div class="contact-method">
+                    <h3>📧 Email</h3>
+                    <p><a href="mailto:info@intrasyncindustrial.com" style="color: var(--intrasync-navy); text-decoration: none;">info@intrasyncindustrial.com</a></p>
+                    <p style="font-size: 14px; font-weight: normal; margin-top: 10px;">Response within 24 hours</p>
+                </div>
+                
+                <div class="contact-method">
+                    <h3>🌐 Schedule Demo</h3>
+                    <p><a href="https://www.intrasyncindustrial.com" target="_blank" style="color: var(--intrasync-navy); text-decoration: none;">intrasyncindustrial.com</a></p>
+                    <p style="font-size: 14px; font-weight: normal; margin-top: 10px;">See it in action today</p>
+                </div>
+            </div>
+            
+            <a href="https://www.intrasyncindustrial.com/demo" target="_blank" class="cta-button">Schedule Your Free Demo Today</a>
+            
+            <div style="margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.2);">
+                <p style="font-size: 16px; opacity: 0.9; font-weight: 700;">
+                    INTRASYNC INDUSTRIAL - Trusted by leading precast, readymix, and aggregates operations across North America
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ROI Calculator
+        document.addEventListener('DOMContentLoaded', function() {
+            const revenueInput = document.getElementById('revenue');
+            const trucksInput = document.getElementById('trucks');
+            const adminInput = document.getElementById('admin-hours');
+            const savingsDisplay = document.getElementById('total-savings');
+            
+            function calculateROI() {
+                const revenue = parseFloat(revenueInput.value) || 0;
+                const trucks = parseFloat(trucksInput.value) || 0;
+                const adminHours = parseFloat(adminInput.value) || 0;
+                
+                // Calculate savings
+                const revenuIncrease = revenue * 0.125; // 12.5% average
+                const fleetSavings = trucks * 15000; // $15k per truck annually
+                const adminSavings = adminHours * 52 * 30 * 0.55; // 55% reduction at $30/hour
+                
+                const totalSavings = revenuIncrease + fleetSavings + adminSavings;
+                
+                // Format and display
+                savingsDisplay.textContent = '$' + totalSavings.toLocaleString('en-US', {
+                    maximumFractionDigits: 0
+                });
+            }
+            
+            // Add event listeners
+            [revenueInput, trucksInput, adminInput].forEach(input => {
+                if (input) {
+                    input.addEventListener('input', calculateROI);
+                }
+            });
+            
+            // Initial calculation
+            calculateROI();
+        });
+    </script>
+</body>
+</html>
